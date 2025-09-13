@@ -1,0 +1,37 @@
+# La línea 'version' ha sido eliminada por ser obsoleta.
+
+services:
+  # Servicio de la aplicación Laravel (PHP + Nginx)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seguro_app
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - seguro_network
+
+  # --- EL SERVICIO 'db' HA SIDO ELIMINADO ---
+
+  # Servicio para el servidor de desarrollo de Vite
+  vite:
+    image: node:20 
+    container_name: seguro_vite
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - seguro_network
+
+networks:
+  seguro_network:
+    driver: bridge
+
+# --- EL VOLUMEN 'seguro_db_data' YA NO ES NECESARIO ---
