@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermisoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,12 @@ Route::middleware('guest')->group(function () {
 
 // --- Rutas Protegidas (requieren autenticación) ---
 Route::middleware('auth')->group(function () {
+    //Busqueda de Permisos//
+        Route::get('/api/user-menu', [PermisoController::class, 'getMenu'])->name('user.menu');
+//Fin Busqueda de Permisos//
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Aquí puedes añadir más rutas para el dashboard en el futuro
+
 });
 
 // Redirigir la raíz a la página de login

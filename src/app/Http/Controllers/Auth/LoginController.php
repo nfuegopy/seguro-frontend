@@ -60,6 +60,8 @@ class LoginController extends Controller
         $request->session()->put('user_data', [
             'nombreCompleto' => $apiUser['nombre'] . ' ' . $apiUser['apellido'],
             'rol' => $apiUser['rol']['nombre'],
+
+            'rol_id' => $apiUser['rol']['id']
         ]);
         $request->session()->put('nestjs_token', $response->json()['access_token']);
 
